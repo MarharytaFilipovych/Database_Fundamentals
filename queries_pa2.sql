@@ -10,7 +10,7 @@ INNER JOIN trail t ON t.id = te.trail_id;
 
 
 --  Identify users who have rated the same trail more than once, and display their names and the trail difficulty details.
-SELECT
+/*SELECT
     u.name AS user_name,
     t.name AS trail_name,
     COUNT(t.id) AS rating_count
@@ -20,7 +20,7 @@ FROM user u
     INNER JOIN difficulty d ON tr.difficulty_id = d.id
 GROUP BY  u.id, t.id
 HAVING COUNT(t.id) > 1
-ORDER BY u.name;*/
+ORDER BY u.name;
 
 ;
 
