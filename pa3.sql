@@ -20,11 +20,12 @@ WHERE r.user_id = (SELECT u.id FROM user u WHERE u.password = 'ForestWonder');*/
     
 -- 2. IN with non-correlated subqueries result: 
     
--- select trails (names), which were reviewed by user with id 15 (LucasTaylor):
+-- select trails (names), which were reviewed by user LucasTaylor:
 
 /*SELECT t.name FROM trail t
 WHERE t.id IN (SELECT r.trail_id FROM review r
-              WHERE r.user_id = 15);*/
+              INNER JOIN user u ON r.user_id = u.id
+              WHERE u.name = 'LucasTaylor');*/
     
 -- delete trails that are hard:
     
@@ -70,7 +71,7 @@ WHERE EXISTS (
     
     GROUP BY r.user_id
     HAVING COUNT(*) > 7
-);*/
+)*/
 
 -- check if there are passwords in user able that start with 'River', if so, set user_id to 7 in review table, where review title starts with 'River'
 
@@ -115,7 +116,7 @@ WHERE EXISTS (SELECT 1 FROM other_table WHERE condition);*/
 -- 6. = with correlated sub-queries result
     
 -- select reviews (titles and contents) with a score of 5:
-    /*SELECT  DISTINCT r.title, r.content FROM review r 
+    /*+SELECT  DISTINCT r.title, r.content FROM review r 
 WHERE r.user_id = (SELECT 1 FROM trail_rating tr WHERE r.user_id = tr.user_id AND tr.score =5)*/
     
 -- delete users who have exactly two reviews associated with them:
@@ -199,7 +200,7 @@ WHERE t.id NOT IN (
 -- 9. EXISTS with correlated sub-queries result
 
 -- check if there is at least one location associated with the trail in Canada and give all info about those trails
-/*SELECT t.*
+/*SELECT t.name, t.length, t.elevation, t.description
 FROM trail t
 WHERE EXISTS (SELECT 1 FROM location l
     WHERE l.id = t.location_id AND l.country = 'Canada');*/
@@ -218,9 +219,9 @@ WHERE EXISTS (SELECT tr.user_id FROM trail_rating WHERE tr.user_id = u.id AND tr
 
 -- 10. NOT EXISTS with correlated sub-queries result
 
---  select all details of trails where no review in the year 2023 exists. 
+--  select name, length, elevation, description of trails where no review in the year 2023 exists. 
 
-/*SELECT * FROM trail t
+/*SELECT t.name, t.length, t.elevation, t.description FROM trail t
 WHERE NOT EXISTS (SELECT 1 FROM review r
               WHERE r.trail_id = t.id AND YEAR(r.review_date) = 2023);*/
 
@@ -240,22 +241,23 @@ WHERE NOT EXISTS (SELECT 1 FROM user u
 
 
 -- INTERSECT
--- select information about trails that have been rated with both difficulty levels 5 and 3
-
+-- select trails that have been rated by both users named 'EthanEvans' and 'GraceLee'
 /*SELECT t.name, t.length, t.elevation, t.description FROM trail t
 WHERE t.id IN (
     SELECT tr.trail_id  FROM trail_rating tr
-    WHERE tr.trail_id = t.id AND tr.difficulty_id = 5
+    INNER JOIN user u ON tr.user_id = u.id
+    WHERE tr.trail_id = t.id AND u.name = 'EthanEvans'
     INTERSECT
     SELECT tr.trail_id FROM trail_rating tr
-    WHERE tr.trail_id = t.id AND tr.difficulty_id = 3);*/
-
+    INNER JOIN user u ON tr.user_id = u.id
+    WHERE tr.trail_id = t.id AND u.name = 'GraceLee')*/
 -- UNION ALL:
 --  create a unified result set that includes both ratings and reviews from different users for various trails, along with an additional column activity_type to differentiate between rating and reviewing activities
 
-/*SELECT tr.user_id, 'rated' AS activity_type, tr.trail_id, tr.score AS rating FROM trail_rating tr
+/*SELECT DISTINCT tr.user_id, 'rated' AS activity_type, tr.trail_id, tr.score AS rating FROM trail_rating tr
 UNION ALL
-SELECT r.user_id, 'reviewed' AS activity_type, r.trail_id, NULL AS rating FROM review r;*/
+SELECT DISTINCT r.user_id, 'reviewed' AS activity_type, r.trail_id, NULL AS rating FROM review r
+ORDER BY user_id, trail_id;*/
     
 -- UNION
 -- create a report that includes the top-rated trails along with the most recent reviews
@@ -280,14 +282,22 @@ ORDER BY category;*/
     GROUP BY tr.trail_id)
 
 SELECT t.name, a.average_score AS average_score FROM trail t
-INNER JOIN average_score a ON a.trail_id = t.id
-                                                
+INNER JOIN average_score a ON a.trail_id = t.id                                                
 EXCEPT
-
 SELECT t.name, a.average_score AS average_score FROM trail t
 INNER JOIN location l ON l.id = t.location_id
 INNER JOIN average_score a ON a.trail_id = t.id
 WHERE l.country = 'United States';*/
 
+-- select information about trails that have been rated as extreme, but not easy (at the same time)
 
+/*SELECT t.name, t.length, t.elevation, t.description FROM trail t
+WHERE t.id IN (
+    SELECT tr.trail_id  FROM trail_rating tr
+    INNER JOIN difficulty d ON tr.difficulty_id = d.id
+    WHERE tr.trail_id = t.id AND d.name = 'Extreme'
+    EXCEPT
+    SELECT tr.trail_id FROM trail_rating tr
+    INNER JOIN difficulty d ON tr.difficulty_id = d.id
+    WHERE tr.trail_id = t.id AND d.name = 'Easy');*/
 
