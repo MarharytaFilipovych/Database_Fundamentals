@@ -1,7 +1,6 @@
 -- 1. = with non-correlated subqueries result:
     
 -- select the contents of all reviews written by EmilyParker.
-    
 /*SELECT r.content
 FROM review r
 WHERE r.user_id = (SELECT u.id FROM user u WHERE u.name = 'EmilyParker');*/
@@ -26,10 +25,9 @@ WHERE r.user_id = (SELECT u.id FROM user u WHERE u.password = 'ForestWonder');*/
 WHERE t.id IN (SELECT r.trail_id FROM review r
               INNER JOIN user u ON r.user_id = u.id
               WHERE u.name = 'LucasTaylor');*/
-    
+
 -- delete trails that are hard:
-    
-/*DELETE FROM trail t
+;/*DELETE FROM trail t
 WHERE t.difficulty_id IN (SELECT d.id FROM difficulty d WHERE d.name = 'Hard');*/
 
 -- change trail score to 4 where difficulty level is easy    
@@ -42,7 +40,6 @@ WHERE tr.difficulty_id IN (SELECT d.id FROM difficulty d WHERE d.name = 'Easy');
 -- 3.NOT IN with non-correlated subqueries result
 
 -- select locations where trails length is less then 7:
-
 /*SELECT l.name FROM location l 
 WHERE l.id NOT IN (SELECT t.location_id FROM trail t WHERE t.length > 7);*/
 
@@ -288,7 +285,6 @@ SELECT t.name, a.average_score AS average_score FROM trail t
 INNER JOIN location l ON l.id = t.location_id
 INNER JOIN average_score a ON a.trail_id = t.id
 WHERE l.country = 'United States';*/
-
 -- select information about trails that have been rated as extreme, but not easy (at the same time)
 
 /*SELECT t.name, t.length, t.elevation, t.description FROM trail t
