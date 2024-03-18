@@ -1,5 +1,0 @@
-C:\Margo\Database_Fundamentals\PopulatingIndexesProgram\obj\Debug\net8.0\PopulatingIndexesProgram.GeneratedMSBuildEditorConfig.editorconfig
-C:\Margo\Database_Fundamentals\PopulatingIndexesProgram\obj\Debug\net8.0\PopulatingIndexesProgram.AssemblyInfoInputs.cache
-C:\Margo\Database_Fundamentals\PopulatingIndexesProgram\obj\Debug\net8.0\PopulatingIndexesProgram.AssemblyInfo.cs
-C:\Margo\Database_Fundamentals\PopulatingIndexesProgram\obj\Debug\net8.0\PopulatingIndexesProgram.csproj.CoreCompileInputs.cache
-C:\Margo\Database_Fundamentals\PopulatingIndexesProgram\obj\Debug\net8.0\PopulatingIndexesProgram.sourcelink.json
