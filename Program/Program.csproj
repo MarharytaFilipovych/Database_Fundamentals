@@ -11,4 +11,8 @@
       <PackageReference Include="MySql.Data" Version="8.3.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="pa4.sql" />
+    </ItemGroup>
+
 </Project>
