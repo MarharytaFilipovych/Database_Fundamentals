@@ -78,3 +78,6 @@ Program/obj/Program.csproj.nuget.g.props
 Program/obj/rider.project.restore.info
 Program/obj/rider.project.restore.info
 /Program/obj
+Program/obj/Program.csproj.nuget.dgspec.json
+Program/obj/Program.csproj.nuget.g.props
+Program/obj/Debug/net8.0/Program.AssemblyInfo.cs

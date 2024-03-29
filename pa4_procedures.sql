@@ -1,6 +1,6 @@
--- It selects trail information from the trail table where the average rating is greater than the provided score. 
+-- It selects trail information from the trail table where the average rating is less than the provided score. 
 DELIMITER //
-CREATE PROCEDURE trails_with_average_rating_greater_than(IN score INT)
+CREATE PROCEDURE trails_with_average_rating_less_than(IN score DOUBLE)
 BEGIN SELECT t.name, t.length, t.elevation
       FROM trail t
       WHERE t.id NOT IN (
@@ -10,7 +10,6 @@ BEGIN SELECT t.name, t.length, t.elevation
           HAVING AVG(tr.score) > score);
 END//
 DELIMITER ;
-
 -- It selects the names of trails reviewed by a specific person
 DELIMITER //
 CREATE PROCEDURE get_trails_reviewed_by(IN person VARCHAR(50))
@@ -33,22 +32,21 @@ END;
 DELIMITER ;
 
 -- This stored procedure retrieves user details (such as name, email, and type) based on the user ID. It returns these details as OUT parameters.
-
 DELIMITER //
-CREATE PROCEDURE get_user_details_by_id(IN id INT, OUT name VARCHAR(50), OUT email VARCHAR(50), OUT type ENUM('noob', 'regular', 'pro'))
-BEGIN 
-    SELECT name, email, type INTO @name, @email, @type FROM user u 
-    WHERE u.id = id;
+CREATE PROCEDURE get_user_details_by_id(IN user_id INT, OUT user_name VARCHAR(50), OUT user_email VARCHAR(50), OUT user_type ENUM('noob', 'regular', 'pro'))
+BEGIN
+    SELECT name, email, type INTO user_name, user_email, user_type FROM user
+    WHERE id = user_id;
 END //
 DELIMITER ;
 
 -- get_user_details_by_name retrieves user details based on the user's name and returns them as OUT parameters.
 DELIMITER //
-CREATE PROCEDURE get_user_details_by_name( INOUT name VARCHAR(50), OUT email VARCHAR(50), OUT type ENUM('noob', 'regular', 'pro'))
+CREATE PROCEDURE get_user_details_by_name(INOUT user_name VARCHAR(50), OUT user_email VARCHAR(50), OUT user_type ENUM('noob', 'regular', 'pro'))
 BEGIN
-    SELECT name, email, type INTO @name, @email, @type FROM user u
-    WHERE u.name = name;
-END //
+    SELECT name, email, type INTO user_name, user_email, user_type FROM user u
+    WHERE u.name = user_name;
+END//
 DELIMITER ;
 
 -- This stored procedure checks if a user with a given email exists in the database. It returns 1 for true, 0 for false, indicating whether the user exists or not.
@@ -66,39 +64,47 @@ DELIMITER ;
    It includes validation checks to ensure that the new email address meets certain criteria and that it does not already exist in the database. If any validation fails, the procedure rolls back the transaction. 
    If all checks pass, the procedure commits the changes and updates the email address.*/
 
+
 DELIMITER //
 CREATE PROCEDURE update_user_email(IN user_id INT, IN new_email VARCHAR(50))
-BEGIN 
+BEGIN
     DECLARE email_exists INT;
     DECLARE email_domain VARCHAR(50);
     DECLARE email_server_type VARCHAR(50);
+
     START TRANSACTION ;
-    
-    IF LENGTH(new_email)=0 OR LENGTH(new_email) >50 OR LOCATE('@', new_email) = 0 THEN
-        ROLLBACK ;
-        SELECT 'Rollback: New email is empty or does not contain "@".' AS message;
-    ELSE
-        SET email_domain = SUBSTRING_INDEX(new_email,'@', -1);
-        SET email_server_type = SUBSTRING_INDEX(email_domain, '.', -1);
-        
-        IF email_server_type != 'com' THEN
+
+    IF LENGTH(new_email) = 0 THEN
         ROLLBACK;
-        SELECT 'Rollback: Invalid email server type. Email server type must be ".com".' AS message;
+        SELECT 'Rollback: New email is empty.' AS message;
+    ELSE
+        IF LENGTH(new_email) > 50 OR LOCATE('@', new_email) = 0 THEN
+            ROLLBACK ;
+            SELECT 'Rollback: New email does not contain "@" or exceeds the maximum length of 50 characters.' AS message;
+        ELSE
+            SET email_domain = SUBSTRING_INDEX(new_email, '@', -1);
+            SET email_server_type = SUBSTRING_INDEX(email_domain, '.', -1);
+
+            IF email_server_type != 'com' THEN
+                ROLLBACK;
+                SELECT 'Rollback: Invalid email server type. Email server type must be ".com".' AS message;
+            ELSE
+                SELECT COUNT(*) INTO email_exists FROM user u WHERE u.email = new_email;
+
+                IF email_exists > 0 THEN
+                    ROLLBACK;
+                    SELECT 'Rollback: Email already exists in the database.' AS message;
+                ELSE
+                    UPDATE user u SET u.email = new_email WHERE u.id = user_id;
+                    COMMIT;
+                    SELECT 'Commit: Email updated successfully.' AS message;
+                END IF;
+            END IF;
         END IF;
     END IF;
-    
-    SELECT COUNT(*) INTO email_exists FROM user u 
-    WHERE u.email = new_email;
-    IF email_exists > 0 THEN 
-    ROLLBACK;
-    SELECT 'Rollback: Email already exists in the database.' AS message;
-    END IF;
-    
-    UPDATE user u SET u.email = new_email WHERE u.id = user_id;
-    COMMIT;
-    SELECT 'Commit: Email updated successfully.' AS message;
-
 END //
+
+DELIMITER ;
 
 
 /*The stored procedure change_trail_description is designed to update the description of a trail in the database. 
