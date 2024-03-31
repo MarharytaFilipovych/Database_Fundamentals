@@ -26,10 +26,10 @@ SELECT(@user_exists);
 
 -- john.doe@example.com
 -- update the email address (if it meets the validation conditions) of a user in a database table
-CALL update_user_email(1, 'alice.smith@example.com');
-CALL update_user_email(1, 'alice.smithe@#xample.cccc');
-CALL update_user_email(1, 'gggggggggggggggggggg');
-CALL update_user_email(1, 'john.home@gmail.com');
+CALL update_user_email(1, 'alice.smith@example.com'); -- rollback, because this email is already present in the table
+CALL update_user_email(1, 'alice.smithe@#xample.cccc'); -- rollback, because this email does not have .com 
+CALL update_user_email(1, 'gggggggggggggggggggg'); -- rollback, not valid email
+CALL update_user_email(1, 'john.home@gmail.com'); -- new email in the table
 
 
 
@@ -39,5 +39,5 @@ CALL update_user_email(1, 'john.home@gmail.com');
   If the trail exists, it updates the description and commits the transaction. 
   Otherwise, it rolls back the transaction and returns a message indicating that the trail was not found.
  */
-CALL change_trail_description('Pine Ridge Trail', '');
-CALL change_trail_description('Pine Ridge Trail', 'New trail, just for you!')
+CALL change_trail_description('Pine Ridge Trail', ''); -- rollback; the description is empty
+CALL change_trail_description('Pine Ridge Trail', 'New trail, just for you!') -- new description in the table
