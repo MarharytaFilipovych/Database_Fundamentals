@@ -1,7 +1,7 @@
 -- It selects trail information from the trail table where the average rating is less than the provided score. 
 DELIMITER //
-CREATE PROCEDURE trails_with_average_rating_less_than(IN score DOUBLE)
-BEGIN SELECT t.name, t.length, t.elevation
+CREATE PROCEDURE trails_with_average_rating_less_than_sproc(IN score DOUBLE)
+BEGIN SELECT DISTINCT t.name, t.length, t.elevation
       FROM trail t
       WHERE t.id NOT IN (
           SELECT tr.trail_id FROM trail_rating tr
@@ -12,28 +12,26 @@ END//
 DELIMITER ;
 -- It selects the names of trails reviewed by a specific person
 DELIMITER //
-CREATE PROCEDURE get_trails_reviewed_by(IN person VARCHAR(50))
+CREATE PROCEDURE get_trails_reviewed_by_sproc(IN person VARCHAR(50))
 BEGIN SELECT t.name FROM trail t 
     INNER JOIN review r ON r.trail_id = t.id
     INNER JOIN user u ON r.user_id = u.id
     WHERE u.name = person;
 END //
 DELIMITER ;
-
 -- update the description of a trail given its name. I can call this stored procedure by providing the name of the trail and the new description. 
 -- After execution, I can retrieve the updated description from the new_description parameter.
 DELIMITER //
-CREATE PROCEDURE update_trail_description(IN trail_name VARCHAR(50), INOUT new_description TEXT)
+CREATE PROCEDURE update_trail_description_sproc(IN trail_name VARCHAR(50), INOUT new_description TEXT)
 BEGIN
     UPDATE trail t 
     SET description = new_description WHERE t.name = trail_name;
    
 END;
 DELIMITER ;
-
 -- This stored procedure retrieves user details (such as name, email, and type) based on the user ID. It returns these details as OUT parameters.
 DELIMITER //
-CREATE PROCEDURE get_user_details_by_id(IN user_id INT, OUT user_name VARCHAR(50), OUT user_email VARCHAR(50), OUT user_type ENUM('noob', 'regular', 'pro'))
+CREATE PROCEDURE get_user_details_by_id_sproc(IN user_id INT, OUT user_name VARCHAR(50), OUT user_email VARCHAR(50), OUT user_type ENUM('noob', 'regular', 'pro'))
 BEGIN
     SELECT name, email, type INTO user_name, user_email, user_type FROM user
     WHERE id = user_id;
@@ -42,17 +40,17 @@ DELIMITER ;
 
 -- get_user_details_by_name retrieves user details based on the user's name and returns them as OUT parameters.
 DELIMITER //
-CREATE PROCEDURE get_user_details_by_name(INOUT user_name VARCHAR(50), OUT user_email VARCHAR(50), OUT user_type ENUM('noob', 'regular', 'pro'))
+CREATE PROCEDURE get_user_details_by_name_sproc(INOUT user_name VARCHAR(50), OUT user_email VARCHAR(50), OUT user_type ENUM('noob', 'regular', 'pro'))
 BEGIN
-    SELECT name, email, type INTO user_name, user_email, user_type FROM user u
-    WHERE u.name = user_name;
+    SELECT  name, email, type INTO user_name, user_email, user_type FROM user u
+    WHERE u.name = user_name
+    LIMIT 1;
 END//
 DELIMITER ;
-
 -- This stored procedure checks if a user with a given email exists in the database. It returns 1 for true, 0 for false, indicating whether the user exists or not.
 
 DELIMITER //
-CREATE PROCEDURE check_if_user_exists_by_their_email(IN email VARCHAR(50), OUT user_exists TINYINT)
+CREATE PROCEDURE check_if_user_exists_by_their_email_sproc(IN email VARCHAR(50), OUT user_exists TINYINT)
     BEGIN
         SELECT COUNT(*) INTO user_exists FROM user u 
         WHERE u.email = email;
@@ -66,7 +64,7 @@ DELIMITER ;
 
 
 DELIMITER //
-CREATE PROCEDURE update_user_email(IN user_id INT, IN new_email VARCHAR(50))
+CREATE PROCEDURE update_user_email_sproc(IN user_id INT, IN new_email VARCHAR(50))
 BEGIN
     DECLARE email_exists INT;
     DECLARE email_domain VARCHAR(50);
@@ -116,7 +114,7 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE change_trail_description(In trail_name VARCHAR(50), IN new_description TEXT)
+CREATE PROCEDURE change_trail_description_sproc(In trail_name VARCHAR(50), IN new_description TEXT)
 BEGIN
     DECLARE trail_exists INT;
     
