@@ -1089,3 +1089,15 @@ VALUES
     (78, 148, 'Wilderness Escape', 'Escaped into the wilderness on this rugged trail. A true adventure in the heart of nature.', '2024-11-23'),
     (79, 149, 'Tranquil Oasis', 'Discovered a tranquil oasis along this trail. Nature\'s sanctuary away from the chaos of everyday life.', '2024-11-24'),
     (80, 150, 'Nature\'s Symphony', 'Listened to nature\'s symphony while hiking this beautiful trail. Each sound was a reminder of the beauty of the natural world.', '2024-11-25');
+INSERT INTO trail_rating (id, trail_id, user_id, score, difficulty_id)
+VALUES (2, 1, 1, 4.5, 2);
+INSERT INTO trail_rating (id, trail_id, user_id, score, difficulty_id)
+VALUES (47, 1, 1, 4.5, 2);
+INSERT INTO trail_rating (id, trail_id, user_id, score, difficulty_id)
+VALUES (32, 1, 1, 4.5, 2);
+INSERT INTO trail_rating (id, trail_id, user_id, score, difficulty_id)
+VALUES (17, 1, 1, 4.5, 2);
+INSERT INTO trail_rating (id, trail_id, user_id, score, difficulty_id)
+VALUES (93, 1, 1, 4.5, 2);
+INSERT INTO trail_rating (id, trail_id, user_id, score, difficulty_id)
+VALUES (152, 1, 1, 4.5, 2);

@@ -54,3 +54,6 @@ SELECT * FROM popular_trails_from_north_america;
 
 ALTER TABLE trail AUTO_INCREMENT = 1;
 
+
+
+
