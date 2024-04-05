@@ -5,8 +5,7 @@
                       elevation DOUBLE DEFAULT NULL,
                       description TEXT DEFAULT NULL,
                       image VARCHAR(100) NOT NULL,
-                      location_id INT DEFAULT NULL,
-                      difficulty_id INT DEFAULT NULL
+                      location_id INT DEFAULT NULL
 );
 -- ALTER TABLE trail
 -- ADD FOREIGN KEY (location_id) REFERENCES location(id) ON DELETE CASCADE;
