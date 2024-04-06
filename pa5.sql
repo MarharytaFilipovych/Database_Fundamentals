@@ -25,9 +25,6 @@ ORDER BY
     COUNT(t.id) DESC;
 
 
-
-
-
 CREATE VIEW popular_trails_from_north_america AS 
 SELECT t.name,
        t.image,
@@ -52,7 +49,6 @@ SELECT * FROM popular_trails_from_europe;
 SELECT * FROM popular_trails_from_north_america;
 
 
-ALTER TABLE trail AUTO_INCREMENT = 1;
 
 
 
