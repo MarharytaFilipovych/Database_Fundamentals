@@ -25,7 +25,7 @@ ORDER BY
     COUNT(t.id) DESC;
 
 
-CREATE VIEW popular_trails_from_north_america AS 
+CREATE VIEW popular_trails_from_north_america_view AS 
 SELECT t.name,
        t.image,
        CONCAT(l.longitude, '; ', l.latitude ) AS coordinates,
