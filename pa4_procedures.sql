@@ -52,7 +52,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE check_if_user_exists_by_their_email_sproc(IN email VARCHAR(50), OUT user_exists TINYINT)
     BEGIN
-        SELECT COUNT(*) INTO user_exists FROM user u 
+        SELECT COUNT(1) INTO user_exists FROM user u 
         WHERE u.email = email;
     END //
 DELIMITER ;
