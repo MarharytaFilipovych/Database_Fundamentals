@@ -1,4 +1,4 @@
-/*INSERT INTO difficulty (name, description) VALUES
+INSERT INTO difficulty (name, description) VALUES
                 ('Easy', 'Suitable for beginners and casual participants.'),
                 ('Intermediate', 'Requires some skill and experience.'),
                 ('Advanced', 'Challenging and suitable for experienced individuals.'),
@@ -18,6 +18,7 @@ INSERT INTO location (name, country, region, latitude, longitude) VALUES
     ('Table Mountain', 'South Africa', 'Western Cape', -33.9249, 18.4241),
     ('Iguazu Falls', 'Argentina', 'Misiones', -26.1921, -54.6564),
     ('Phuket Island', 'Thailand', 'Phuket', 7.8804, 98.3923);
+
 INSERT INTO location (name, country, region, latitude, longitude) VALUES
 ('Mountain View', 'United States', 'California', 37.3861, -122.0839),
 ('Golden Gate Bridge', 'United States', 'California', 37.8199, -122.4783),
@@ -39,8 +40,8 @@ INSERT INTO location (name, country, region, latitude, longitude) VALUES
 ('Petra', 'Jordan', 'Ma\'an', 30.3285, 35.4444),
 ('Santorini', 'Greece', 'South Aegean', 36.3932, 25.4615),
 ('Galápagos Islands', 'Ecuador', 'Galápagos', -0.8326, -91.1347);  
- */
-/*INSERT INTO trail (name, length, elevation, description, image, location_id) VALUES
+ 
+INSERT INTO trail (name, length, elevation, description, image, location_id) VALUES
                                                                                  ('Majestic Peaks', 10.2, 1800, 'Explore the majestic peaks and breathtaking landscapes.', 'https://cdn.trailhub.com/majestic-peaks-cover.jpg', 1),
                                                                                  ('Sunset Serenade', 6.8, 1080, 'Enjoy a serenade of colors during a mesmerizing sunset trail.', 'https://cdn.trailhub.com/sunset-serenade-cover.jpg', 2),
                                                                                  ('Hidden Waterfalls', 8.5, 1200, 'Discover hidden waterfalls along this enchanting and refreshing trail.', 'https://cdn.trailhub.com/hidden-waterfalls-cover.jpg', 3),
@@ -357,8 +358,8 @@ INSERT INTO trail_rating (trail_id, user_id, score, difficulty_id) VALUES
                                                         ('BenjaminCarter', 'benjamin.carter@example.com', 'TrailSeekerLife2022', 'regular'),
                                                         ('MasonTorres', 'mason.torres@example.com', 'AdventureJunkie', 'pro');
 
- */
-/*INSERT INTO review (trail_id, user_id, title, content, review_date) VALUES
+ 
+INSERT INTO review (trail_id, user_id, title, content, review_date) VALUES
                                                                                           (1, 1, 'Amazing Mountain Trail', 'Had an incredible experience on this trail. The views from the top were breathtaking!', '2022-01-15'),
                                                                                           (2, 2, 'Beautiful Forest Hike', 'A peaceful hike through the dense forest. Loved every moment of it.', '2022-02-05'),
                                                                                           (2, 3, 'Trail Running Adventure', 'Great trail for running! The varied terrain kept it interesting.', '2022-03-12'),
@@ -503,19 +504,20 @@ INSERT INTO review (trail_id, user_id, title, content, review_date) VALUES
 (13, 14, 'Wildlife Encounter', 'Encountered a variety of wildlife along the trail, from deer to birds to small mammals.', '2024-05-02'),
 (14, 15, 'Mountain Majesty', 'Once again, the majestic views from the mountain trail left me in awe of the natural world.', '2024-05-03'),
 (15, 1, 'Forest Fantasy', 'The forest trail felt like stepping into a fantasy world, with its towering trees and lush undergrowth.', '2024-05-04');
+
 INSERT INTO review (trail_id, user_id, title, content, review_date) VALUES
 (1, 3, 'Amazing Adventure', 'Had an amazing adventure on this trail. The views were absolutely breathtaking!', '2024-05-05'),
 (2, 4, 'Enchanted Forest', 'Felt like I was walking through an enchanted forest. The atmosphere was magical.', '2024-05-06'),
 (3, 5, 'Canyon Marvel', 'Marvelled at the beauty and grandeur of the canyon. Nature\'s masterpiece!', '2024-05-07'),
 (4, 6, 'Rocky Journey', 'The rocky journey was challenging but immensely rewarding. A true test of perseverance.', '2024-05-08'),
-(5, 7, 'Riverbank Oasis', 'Found a peaceful oasis by the riverbank. Nature\'s tranquility at its best.', '2024-05-09'),
+(5, 7, 'Riverbank Oasis', 'Found a peaceful oasis by the riverbank. Natures tranquility at its best.', '2024-05-09'),
 (6, 8, 'Hilltop Retreat', 'Retreated to the hilltop for a moment of serenity and reflection. A perfect escape.', '2024-05-10'),
 (7, 9, 'Wildflower Wonderland', 'The trail was alive with colorful wildflowers, creating a truly magical experience.', '2024-05-11'),
 (8, 10, 'Coastal Beauty', 'The coastal beauty was awe-inspiring, with stunning vistas at every turn.', '2024-05-12'),
 (9, 11, 'Mountain Majesty', 'Witnessed the majesty of the mountains from the summit. A breathtaking experience.', '2024-05-13'),
 (10, 12, 'Enchanted Forest', 'Explored the depths of the enchanted forest, discovering hidden wonders along the way.', '2024-05-14'),
 (11, 13, 'Canyon Wonders', 'Wondered at the wonders of the canyon, shaped by the forces of nature over eons.', '2024-05-15'),
-(12, 14, 'Sunset Bliss', 'Experienced pure bliss watching the sunset from the trail. Nature\'s beauty at its finest.', '2024-05-16'),
+(12, 14, 'Sunset Bliss', 'Experienced pure bliss watching the sunset from the trail. Natures beauty at its finest.', '2024-05-16'),
 (13, 15, 'Tranquil Trail', 'Found tranquility on the trail, far away from the hustle and bustle of city life.', '2024-05-17'),
 (14, 1, 'Panoramic Paradise', 'The panoramic views from the trail were nothing short of paradise. A truly heavenly experience.', '2024-05-18'),
 (15, 2, 'Solo Sojourn', 'Embarked on a solo sojourn and discovered the true joy of solitude in nature.', '2024-05-19'),
@@ -527,14 +529,14 @@ INSERT INTO review (trail_id, user_id, title, content, review_date) VALUES
 (6, 9, 'Hilltop Haven', 'Found solace and tranquility at the hilltop. A sanctuary away from the chaos of daily life.', '2024-05-25'),
 (7, 10, 'Wildflower Wonderland', 'The trail was a wonderland of wildflowers, painting the landscape in vibrant colors.', '2024-05-26'),
 (8, 11, 'Coastal Escape', 'Escaped to the coast for a breath of fresh air and stunning coastal views. Pure bliss!', '2024-05-27'),
-(9, 12, 'Mountain Magic', 'Experienced the magic of the mountains firsthand. Nature\'s wonders never cease to amaze.', '2024-05-28'),
+(9, 12, 'Mountain Magic', 'Experienced the magic of the mountains firsthand. Natures wonders never cease to amaze.', '2024-05-28'),
 (10, 13, 'Forest Fantasy', 'The forest trail felt like stepping into a fantasy world, with its ancient trees and mystical aura.', '2024-05-29'),
 (11, 14, 'Canyon Majesty', 'Witnessed the majestic beauty of the canyon, carved by the hands of time. A truly humbling experience.', '2024-05-30'),
 (12, 15, 'Sunset Serenade', 'Serenaded by the sunset on the trail, with the sky ablaze in hues of orange and pink. Nature\'s symphony!', '2024-05-31'),
 (13, 1, 'Trail Tranquility', 'Found peace and tranquility on the trail, with only the sounds of nature to accompany me. Blissful!', '2024-06-01'),
 (14, 2, 'Panoramic Views', 'The panoramic views from the trail were breathtaking, stretching as far as the eye could see. Simply awe-inspiring!', '2024-06-02'),
 (15, 3, 'Solo Expedition', 'Embarked on a solo expedition and discovered the true beauty of solitude in nature. An unforgettable journey!', '2024-06-03');
-```
+
 INSERT INTO review (trail_id, user_id, title, content, review_date) VALUES
                                                                         (1, 1, 'Fantastic Hike', 'I had a fantastic time hiking this trail. The views were breathtaking!', '2023-05-10'),
                                                                         (2, 2, 'Sunset Beauty', 'Witnessing the sunset from this trail was truly a magical experience.', '2023-06-22'),

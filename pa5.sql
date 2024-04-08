@@ -44,9 +44,9 @@ ORDER BY
     COUNT(t.id) DESC;
 
 
-SELECT * FROM popular_trails_from_europe;
+SELECT * FROM popular_trails_from_europe_view;
 
-SELECT * FROM popular_trails_from_north_america;
+SELECT * FROM popular_trails_from_north_america_view;
 
 
 
