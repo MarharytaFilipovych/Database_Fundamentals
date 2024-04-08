@@ -125,7 +125,7 @@ BEGIN
         SELECT 'Rollback: New description is empty or exceeds the maximum length of 255 characters.' AS message;
     ELSE
 
-        SELECT COUNT(*) INTO trail_exists FROM trail t WHERE t.name = trail_name;
+        SELECT COUNT(1) INTO trail_exists FROM trail t WHERE t.name = trail_name;
         IF trail_exists = 0 THEN
             ROLLBACK ;
             SELECT 'Rollback: Trail name not found.' AS message;
