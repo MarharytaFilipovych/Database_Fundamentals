@@ -6,6 +6,13 @@ reviews. Result set should include: trail name, image, coordinates, description,
 -- SET @na_poly = 'POLYGON((90 -168.75, 90 -10, 78.13 -10, 57.5 -37.5, 15 -30, 15 -75, 1.25 -105, 51 -180, 60 -180, 60 -168.75, 90 -168.75))';
 -- SET @eur_poly = 'POLYGON((90 -10, 90 77.5, 42.5 48.8, 42.5 30, 40.79 28.81, 41 29, 40.55 27.31, 40.40 26.75, 40.05 26.36, 39.17 25.19, 35.46 27.91, 33 27.5, 38 10, 35.42 -10, 28.25 -13, 15 -30, 57.5 -37.5, 78.13 -10, 90 -10))';
 
+CREATE INDEX idx_trail_name ON trail(name);
+CREATE INDEX idx_trail_image ON trail(image);
+CREATE INDEX idx_location_latitude ON location(latitude);
+CREATE INDEX idx_location_longitude ON location(longitude);
+CREATE INDEX idx_trail_description ON trail(description);
+CREATE INDEX idx_review_content ON review(content);
+
 CREATE VIEW popular_trails_from_europe_view AS 
 SELECT t.name,
        t.image,
@@ -47,9 +54,4 @@ ORDER BY
 SELECT * FROM popular_trails_from_europe_view;
 
 SELECT * FROM popular_trails_from_north_america_view;
-
-
-
-
-
 
