@@ -71,8 +71,7 @@ INNER JOIN
 INNER JOIN review r ON u.id = r.user_id
 GROUP BY u.id
 ORDER BY number_of_reviews DESC
-LIMIT 1) us
-ON us.id = u.id
+LIMIT 1) us ON us.id = u.id
 GROUP BY t.id, tr.id;
 
 -- Find locations where the average trail length is above the overall average:
