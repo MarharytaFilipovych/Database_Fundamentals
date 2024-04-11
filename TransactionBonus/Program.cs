@@ -20,7 +20,7 @@ try
 catch (Exception e)
 {
     transaction.Rollback();
-    Console.WriteLine($"Rollback. Error: {e}");
+    Console.WriteLine($"Rollback. Error: {e}!!!");
     
 }
 
