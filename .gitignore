@@ -1,3 +1,11 @@
 .idea
 [Oo]bj/
 [Bb]in/
+Program/obj/
+Program/obj/Debug/net8.0/Program.assets.cache
+Program/obj/Debug/net8.0/Program.AssemblyInfo.cs
+Program/obj/Debug/net8.0/Program.AssemblyInfoInputs.cache
+Program/obj/project.assets.json
+Program/obj/project.nuget.cache
+Program/obj/rider.project.restore.info
+Program/obj/Program.csproj.nuget.dgspec.json
