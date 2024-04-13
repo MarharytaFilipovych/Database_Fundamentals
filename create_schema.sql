@@ -1,18 +1,16 @@
-/*CREATE TABLE trail(
+CREATE TABLE trail(
                       id INT AUTO_INCREMENT PRIMARY KEY,
                       name VARCHAR(30) NOT NULL,
                       length DOUBLE NOT NULL,
                       elevation DOUBLE DEFAULT NULL,
                       description TEXT DEFAULT NULL,
                       image VARCHAR(100) NOT NULL,
-                      location_id INT DEFAULT NULL,
-                      difficulty_id INT DEFAULT NULL
+                      location_id INT DEFAULT NULL
 );
--- ALTER TABLE trail
--- ADD FOREIGN KEY (location_id) REFERENCES location(id) ON DELETE CASCADE;
-
 ALTER TABLE trail
-    DROP COLUMN difficulty_id;
+ADD FOREIGN KEY (location_id) REFERENCES location(id) ON DELETE CASCADE;
+
+ALTER TABLE trail DROP COLUMN difficulty_id;
 
 
 CREATE TABLE location(
@@ -63,4 +61,4 @@ CREATE TABLE review (
 ALTER TABLE review
     ADD FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
     ADD FOREIGN KEY (trail_id) REFERENCES trail(id) ON DELETE CASCADE
-  ;*/
+  ;
