@@ -57,6 +57,7 @@ WHERE t.id NOT IN (SELECT tr.id FROM trail_rating tr
 SET tr.difficulty_id = 5
 WHERE tr.user_id NOT IN (SELECT u.id FROM user u WHERE u.type IN ('regular', 'pro'));*/
 
+    
 -- 4.EXISTS with non-correlated sub-queries result
 
 --  check for any users who have written more than 7 reviews and if those exist, select all trail names
@@ -70,7 +71,7 @@ WHERE EXISTS (
     HAVING COUNT(*) > 7
 )*/
 
--- check if there are passwords in user able that start with 'River', if so, set user_id to 7 in review table, where review title starts with 'River'
+-- check if there are passwords in user table that start with 'River', if so, set user_id to 7 in review table, where review title starts with 'River'
 
 /*UPDATE review r 
 SET r.user_id = 7 
@@ -82,7 +83,8 @@ WHERE r.title LIKE 'River%' AND EXISTS (SELECT 1 FROM user u
 /*DELETE FROM user u 
 WHERE u.email LIKE 'a%' AND EXISTS (SELECT 1 FROM location l WHERE country = 'Canada')*/
 
--- 5.NOT EXISTS with non-correlated subqueries result
+    
+-- 5.NOT EXISTS with non-correlated sub-queries result
 
 -- select user's name and email if there doesn't exist a review(s) made in year 2026;
 
@@ -98,6 +100,7 @@ WHERE t.elevation > (SELECT AVG(t.elevation) as average_elevation from trail t
         GROUP BY t.id)
 AND NOT EXISTS(SELECT * FROM location l 
             WHERE l.latitude < 0 );*/
+    
 -- delete reviews with dates in year 2026 if there are no names that start with 'Lucas' in user table   
 
 /*DELETE FROM review r
@@ -106,17 +109,15 @@ AND NOT EXISTS(SELECT * FROM user u
                 WHERE u.name LIKE 'Lucas%')*/
 
 
-/*SELECT *
-FROM user u
-WHERE EXISTS (SELECT 1 FROM other_table WHERE condition);*/
-
 -- 6. = with correlated sub-queries result
     
 -- select reviews (titles and contents) with a score of 5:
+    
     /*+SELECT  DISTINCT r.title, r.content FROM review r 
 WHERE r.user_id = (SELECT 1 FROM trail_rating tr WHERE r.user_id = tr.user_id AND tr.score =5)*/
     
 -- delete users who have exactly two reviews associated with them:
+    
 /*DELETE FROM user u 
 WHERE (SELECT COUNT(1) FROM review r WHERE r.user_id = u.id ) = 2;*/
     
@@ -132,6 +133,7 @@ WHERE t.id = (
     JOIN  trail_rating tr ON tr.user_id = u.id
     WHERE u.name = 'EmmaWilson');*/
 
+    
 -- 7. IN with correlated sub-queries result
 
 -- select information about trails that have been rated by users with a password starting with 'Rocky':
@@ -193,10 +195,10 @@ WHERE t.id NOT IN (
     WHERE t.id = r.trail_id AND YEAR(r.review_date) = 2025);*/
 
 
-
 -- 9. EXISTS with correlated sub-queries result
 
 -- check if there is at least one location associated with the trail in Canada and give all info about those trails
+
 /*SELECT t.name, t.length, t.elevation, t.description
 FROM trail t
 WHERE EXISTS (SELECT 1 FROM location l
@@ -239,6 +241,7 @@ WHERE NOT EXISTS (SELECT 1 FROM user u
 
 -- INTERSECT
 -- select trails that have been rated by both users named 'EthanEvans' and 'GraceLee'
+    
 /*SELECT t.name, t.length, t.elevation, t.description FROM trail t
 WHERE t.id IN (
     SELECT tr.trail_id  FROM trail_rating tr
@@ -248,6 +251,7 @@ WHERE t.id IN (
     SELECT tr.trail_id FROM trail_rating tr
     INNER JOIN user u ON tr.user_id = u.id
     WHERE tr.trail_id = t.id AND u.name = 'GraceLee')*/
+    
 -- UNION ALL:
 --  create a unified result set that includes both ratings and reviews from different users for various trails, along with an additional column activity_type to differentiate between rating and reviewing activities
 
