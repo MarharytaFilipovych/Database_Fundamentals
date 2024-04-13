@@ -74,13 +74,13 @@ WHERE EXISTS (
 
 /*UPDATE review r 
 SET r.user_id = 7 
-WHERE r.title LIKE 'River%' AND EXISTS (SELECT * FROM user u 
+WHERE r.title LIKE 'River%' AND EXISTS (SELECT 1 FROM user u 
                                         WHERE u.user_password LIKE 'River%');*/
 
 -- delete users whose email starts with 'a%' if there exists at least one location in Canada
 
 /*DELETE FROM user u 
-WHERE u.email LIKE 'a%' AND EXISTS (SELECT * FROM location l WHERE country = 'Canada')*/
+WHERE u.email LIKE 'a%' AND EXISTS (SELECT 1 FROM location l WHERE country = 'Canada')*/
 
 -- 5.NOT EXISTS with non-correlated subqueries result
 
